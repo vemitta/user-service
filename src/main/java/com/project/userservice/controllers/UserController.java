@@ -54,11 +54,11 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
-//    @GetMapping
-//    public ResponseEntity<List<PublicUser>> getAllUsers() {
-//        List<DBUser> dbUsers = userService.getAllUsers();
-//        return ResponseEntity.ok(userMapper.entityToPublicModel(dbUsers));
-//    }
+    @GetMapping("/interviewers")
+    public ResponseEntity<List<PublicUser>> getAllUsers() {
+        List<DBUser> dbUsers = userService.getAllUsersWithoutPagination();
+        return ResponseEntity.ok(userMapper.entityToPublicModel(dbUsers));
+    }
 
 //    @GetMapping("/{userId}")
 //    public ResponseEntity<User> getUserById(@PathVariable Integer userId) {

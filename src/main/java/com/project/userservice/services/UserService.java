@@ -20,4 +20,6 @@ public interface UserService {
     Optional<DBUser> getUserById(Integer userId);
 
     DBUser createUser(DBUser newUser);
+
+    List<DBUser> getAllUsersWithoutPagination();
 }

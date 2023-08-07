@@ -120,4 +120,9 @@ public class UserServiceImpl implements UserService {
     public DBUser createUser(DBUser newUser) {
         return userRepository.save(newUser);
     }
+
+    @Override
+    public List<DBUser> getAllUsersWithoutPagination() {
+        return userRepository.findAll();
+    }
 }
