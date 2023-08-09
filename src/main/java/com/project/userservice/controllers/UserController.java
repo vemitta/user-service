@@ -1,14 +1,12 @@
 package com.project.userservice.controllers;
 
 import com.project.userservice.mappers.UserMapper;
-import com.project.userservice.models.DBUser;
-import com.project.userservice.models.PublicUser;
-import com.project.userservice.models.User;
-import com.project.userservice.models.UserListResponse;
+import com.project.userservice.models.*;
 import com.project.userservice.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,11 +36,11 @@ public class UserController {
         return ResponseEntity.ok("User deleted successfully");
     }
 
-    @PatchMapping("/{userId}")
-    public ResponseEntity<PublicUser> updateUser(@PathVariable Integer userId, @RequestBody DBUser updatedUser) {
-        DBUser user = userService.updateUser(userId, updatedUser);
-        return ResponseEntity.ok(userMapper.entityToPublicModel(user));
-    }
+//    @PatchMapping("/{userId}")
+//    public ResponseEntity<PublicUser> updateUser(@PathVariable Integer userId, @RequestBody DBUser updatedUser) {
+//        DBUser user = userService.updateUser(userId, updatedUser);
+//        return ResponseEntity.ok(userMapper.entityToPublicModel(user));
+//    }
 
     @GetMapping
     public ResponseEntity<UserListResponse> getAllUsers(@RequestParam(required = false) Integer pageSize, @RequestParam(required = false) Integer pageNumber) {
@@ -58,6 +56,30 @@ public class UserController {
     public ResponseEntity<List<PublicUser>> getAllUsers() {
         List<DBUser> dbUsers = userService.getAllUsersWithoutPagination();
         return ResponseEntity.ok(userMapper.entityToPublicModel(dbUsers));
+    }
+
+    @PatchMapping("/{userId}/admin")
+    public ResponseEntity<?> partialUpdateAdminUser(
+            @PathVariable Integer userId,
+            @RequestBody PublicUser publicUser) {
+        try {
+            userService.partialUpdateAdminUser(userId, publicUser);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @PatchMapping("/{userId}")
+    public ResponseEntity<?> partialUpdateUser(
+            @PathVariable Integer userId,
+            @RequestBody UpdateUserRequest updateUserRequest) {
+        try {
+            userService.partialUpdateUser(userId, updateUserRequest);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
 //    @GetMapping("/{userId}")

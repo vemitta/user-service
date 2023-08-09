@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @RestController
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
@@ -42,7 +41,6 @@ public class AuthorizationController {
     @GetMapping("/authorization/user")
     public PublicUser getUser() {
         DBUser user = (DBUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        System.out.println(user);
         return userMapper.entityToPublicModel(user);
     }
 }

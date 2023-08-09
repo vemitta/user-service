@@ -13,5 +13,6 @@ import java.util.List;
 public class Skill {
     private Long id;
     private String title;
+    @JsonIgnore
     private List<User> users;
 }

@@ -1,7 +1,6 @@
 package com.project.userservice.auth;
 
 import com.project.userservice.models.DBUser;
-import com.project.userservice.models.User;
 import com.project.userservice.services.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

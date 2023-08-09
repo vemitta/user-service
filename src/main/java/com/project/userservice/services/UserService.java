@@ -1,7 +1,6 @@
 package com.project.userservice.services;
 
-import com.project.userservice.models.DBUser;
-import com.project.userservice.models.User;
+import com.project.userservice.models.*;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -22,4 +21,8 @@ public interface UserService {
     DBUser createUser(DBUser newUser);
 
     List<DBUser> getAllUsersWithoutPagination();
+
+    void partialUpdateUser(Integer userId, UpdateUserRequest updateUserRequest);
+
+    void partialUpdateAdminUser(Integer userId, PublicUser publicUser);
 }
